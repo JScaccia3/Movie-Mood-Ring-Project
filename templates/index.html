@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Movie Mood Ring</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>The Movie Mood Ring</h1>
+    <form action="/recommend" method="POST">
+        <label for="mood">What's your mood?</label>
+        <select name="mood" id="mood">
+            <option value="happy">Happy</option>
+            <option value="sad">Sad</option>
+            <option value="scary">Scary</option>
+            <option value="excited">Excited</option>
+            <option value="surprise">Surprise Me!</option>
+        </select>
+        <button type="submit">Get Recommendations</button>
+    </form>
+</body>
+</html>
+

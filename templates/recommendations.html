@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Recommendations for {{ mood|capitalize }} Mood</h1>
+    {% if recommendations.error %}
+        <p>{{ recommendations.error }}</p>
+    {% else %}
+        {% for movie in recommendations %}
+            <div class="movie">
+                <h2>{{ movie.title }}</h2>
+                {% if movie.poster %}
+                    <img src="{{ movie.poster }}" alt="{{ movie.title }} poster" width="200">
+                {% endif %}
+                <p><strong>Overview:</strong> {{ movie.overview }}</p>
+                <p><strong>Fun Fact:</strong> {{ movie.fun_fact }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <a href="/">Back to Home</a>
+</body>
+</html>
+
+

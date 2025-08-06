@@ -1,0 +1,71 @@
+body {
+         font-family: Arial, sans-serif;
+         text-align: center;
+         margin: 0;
+         padding: 0;
+         background-image: url('/static/images/background.jpg');
+         background-size: cover;
+         background-position: center;
+         background-attachment: fixed;
+         min-height: 100vh;
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         color: rgb(47, 38, 38);
+     }
+     h1 {
+         font-size: 2.5em;
+         margin-bottom: 20px;
+         text-shadow: 2px 2px 4px rgba(22, 18, 18, 0.7);
+     }
+     form {
+         background: rgba(71, 56, 56, 0.7); /* Semi-transparent overlay for readability */
+         padding: 20px;
+         border-radius: 10px;
+         box-shadow: 0 0 10px rgba(85, 75, 75, 0.5);
+     }
+     select, button {
+         padding: 10px;
+         font-size: 1em;
+         margin: 10px;
+         border-radius: 5px;
+         border: none;
+         cursor: pointer;
+     }
+     select {
+         width: 200px;
+     }
+     button {
+         background-color: #e50914; /* Netflix red */
+         color: rgb(6, 6, 6);
+         transition: background-color 0.3s;
+     }
+     button:hover {
+         background-color: #b2070f;
+     }
+     .recommendations {
+         margin-top: 20px;
+         max-width: 800px;
+         text-align: left;
+     }
+     .recommendation {
+         background: rgba(147, 79, 79, 0.9);
+         color: rgb(243, 239, 239);
+         padding: 15px;
+         margin: 10px 0;
+         border-radius: 5px;
+     }
+     img {
+         max-width: 200px;
+         height: auto;
+         border-radius: 5px;
+     }
+     a {
+         color: #e50914;
+         text-decoration: none;
+         font-weight: bold;
+     }
+     a:hover {
+         text-decoration: underline;
+     }
