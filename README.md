@@ -1,55 +1,80 @@
-# final-project-implementation
-This is the repository for my final project on movie recommendation web app
+# Movie Mood Ring
 
-# The Movie Mood Ring
+The Movie Mood Ring is a Flask web application that recommends movies based on your current mood. It uses the [TMDB API](https://www.themoviedb.org/) to fetch movie data and provides a fun, interactive way to discover new films.
 
-A web application that recommends movies based on your mood, powered by the TMDB API. Select a mood (Happy, Sad, Scary, Excited, or Surprise Me!) to receive a curated list of movie recommendations, including titles, posters, overviews, and fun facts.
+## Setup (Local)
 
-## Features
-- Choose a mood to get movie recommendations tailored to genres like Comedy, Drama, Horror, or Action.
-- "Surprise Me!" option for random movie suggestions across all genres.
-- Displays movie posters, overviews, and fun facts for an engaging user experience.
-- Built with Flask and styled for a clean, intuitive interface.
+To run this app locally, follow these steps:
 
-## Installation
-
-### Prerequisites
-- [Anaconda](https://www.anaconda.com/products/distribution) for managing Python environments.
-- A [TMDB API key](https://www.themoviedb.org/) for accessing movie data.
-- Git installed [](https://git-scm.com/) to clone the repository.
-
-### Steps
-1. **Clone the Repository**:
-   - Open a terminal:
-     - **Mac**: Use Terminal (default shell is `zsh` or `bash`).
-     - **Windows**: Use Command Prompt, PowerShell, or Git Bash (recommended, installed with Git).
-   - Run:
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-repo/movie-mood-ring.git
+   ```
+2. **Navigate to the project directory**:
+   ```bash
+   cd movie-mood-ring
+   ```
+3. **Create a virtual environment**:
+   ```bash
+   python -m venv venv
+   ```
+4. **Activate the virtual environment**:
+   - On macOS/Linux:
      ```bash
-     git clone https://github.com/your-username/movie-mood-ring.git
-     cd movie-mood-ring
+     source venv/bin/activate
+     ```
+   - On Windows:
+     ```bash
+     venv\Scripts\activate
+     ```
+5. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+6. **Set the TMDB API key as an environment variable**:
+   - On macOS/Linux:
+     ```bash
+     export TMDB_API_KEY=your_api_key_here
+     ```
+   - On Windows:
+     ```bash
+     set TMDB_API_KEY=your_api_key_here
+     ```
+7. **Run the app**:
+   ```bash
+   flask run
+   ```
+8. **Access the app**:
+   - Open your browser and navigate to `http://127.0.0.1:5000`.
 
-2. Set Up Anaconda Environment:
+## Deployment on Render.com
 
-   - Install Anaconda if not already installed.
-   - Create and activate a virtual environment:
-     conda create -n movie_mood_ring python=3.9
-     conda activate movie_mood_ring
+To deploy this app on Render.com, follow these steps:
 
-3. Install Dependencies:
-   - Install required Python packages:
-     pip install -r requirements.txt
+1. **Sign up for a Render account**:
+   - Go to [Render.com](https://render.com/) and create an account.
 
-4. Set Up Environment Variables:
+2. **Create a new web service**:
+   - From the Render dashboard, click "New" and select "Web Service."
+   - Connect your GitHub repository by selecting it or entering the repository URL.
 
-   - Create a .env file in the project root:
-        - Mac: Use a text editor (e.g., VS Code, nano):
-          echo "TMDB_API_KEY=your_api_key_here" > .env
-        - Windows: Create .env in a text editor or use:
-          echo TMDB_API_KEY=your_api_key_here > .env
-   - Replace your_api_key_here with your TMDB API key from themoviedb.org.
+3. **Configure the web service**:
+   - **Build Command**: Leave as default (`pip install -r requirements.txt`).
+   - **Start Command**: Set to `gunicorn app:app` (ensure your Flask app is named `app` in `app.py`).
+   - **Environment Variables**: Add `TMDB_API_KEY` with your TMDB API key as the value.
 
-5. Run the Application:
-  
-   - Start the Flask server:
-     python app.py
-   - Open your browser and navigate to http://localhost:5000.  
+4. **Deploy the app**:
+   - Click "Create Web Service" to initiate deployment.
+   - Once complete, Render provides a URL (e.g., `https://your-app-name.onrender.com`) to access your live app.
+
+## Usage
+
+- Select a mood from the dropdown menu and click "Get Recommendations" to see movie suggestions.
+- Use the mood quiz if you're unsure about your current mood.
+- Enjoy discovering new movies!
+
+## Notes
+
+- **TMDB API Key**: Obtain a key by signing up on the [TMDB website](https://www.themoviedb.org/).
+- **Requirements**: Ensure `requirements.txt` includes `Flask`, `requests`, `python-dotenv`, and `gunicorn`.
+- **Issues**: Report problems or suggestions by opening an issue on the GitHub repository.
