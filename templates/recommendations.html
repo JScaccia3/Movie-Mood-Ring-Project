@@ -1,27 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Recommendations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Recommendations for {{ mood|capitalize }} Mood</h1>
-    {% if recommendations.error %}
-        <p>{{ recommendations.error }}</p>
-    {% else %}
-        {% for movie in recommendations %}
-            <div class="movie">
-                <h2>{{ movie.title }}</h2>
-                {% if movie.poster %}
-                    <img src="{{ movie.poster }}" alt="{{ movie.title }} poster" width="200">
-                {% endif %}
-                <p><strong>Overview:</strong> {{ movie.overview }}</p>
-                <p><strong>Fun Fact:</strong> {{ movie.fun_fact }}</p>
-            </div>
-        {% endfor %}
-    {% endif %}
-    <a href="/">Back to Home</a>
+    <div class="header">
+        <h1>Movie Recommendations for "{{ mood }}"</h1>
+        <p>Here’s what we found for you!</p>
+    </div>
+    <div class="movies">
+        {% if movies %}
+            {% for movie in movies %}
+                <div class="movie">
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }}">
+                    <h3>{{ movie.title }}</h3>
+                    <p>{{ movie.overview }}</p>
+                    {% if movie.fun_fact %}
+                        <p><strong>Fun Fact:</strong> {{ movie.fun_fact }}</p>
+                    {% endif %}
+                    {% if movie.trailer_url %}
+                        <p><a href="{{ movie.trailer_url }}" target="_blank">Watch Trailer</a></p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No movies found for this mood. Try another mood!</p>
+        {% endif %}
+    </div>
+    <p><a href="/">Back to mood selection</a></p>
 </body>
 </html>
-
-

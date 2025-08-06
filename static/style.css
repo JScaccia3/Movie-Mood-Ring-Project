@@ -1,71 +1,147 @@
+/* General Styles */
 body {
-         font-family: Arial, sans-serif;
-         text-align: center;
-         margin: 0;
-         padding: 0;
-         background-image: url('/static/images/background.jpg');
-         background-size: cover;
-         background-position: center;
-         background-attachment: fixed;
-         min-height: 100vh;
-         display: flex;
-         flex-direction: column;
-         justify-content: center;
-         align-items: center;
-         color: rgb(47, 38, 38);
-     }
-     h1 {
-         font-size: 2.5em;
-         margin-bottom: 20px;
-         text-shadow: 2px 2px 4px rgba(22, 18, 18, 0.7);
-     }
-     form {
-         background: rgba(71, 56, 56, 0.7); /* Semi-transparent overlay for readability */
-         padding: 20px;
-         border-radius: 10px;
-         box-shadow: 0 0 10px rgba(85, 75, 75, 0.5);
-     }
-     select, button {
-         padding: 10px;
-         font-size: 1em;
-         margin: 10px;
-         border-radius: 5px;
-         border: none;
-         cursor: pointer;
-     }
-     select {
-         width: 200px;
-     }
-     button {
-         background-color: #e50914; /* Netflix red */
-         color: rgb(6, 6, 6);
-         transition: background-color 0.3s;
-     }
-     button:hover {
-         background-color: #b2070f;
-     }
-     .recommendations {
-         margin-top: 20px;
-         max-width: 800px;
-         text-align: left;
-     }
-     .recommendation {
-         background: rgba(147, 79, 79, 0.9);
-         color: rgb(243, 239, 239);
-         padding: 15px;
-         margin: 10px 0;
-         border-radius: 5px;
-     }
-     img {
-         max-width: 200px;
-         height: auto;
-         border-radius: 5px;
-     }
-     a {
-         color: #e50914;
-         text-decoration: none;
-         font-weight: bold;
-     }
-     a:hover {
-         text-decoration: underline;
-     }
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #1a1a1a, #111);
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* Headings */
+h1, h2 {
+    color: #e50914; /* Netflix-inspired red */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Header Section */
+.header {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 2.8em;
+    margin: 0;
+}
+
+.header p {
+    font-size: 1.3em;
+    color: #ccc;
+    margin: 5px 0 0;
+}
+
+/* Form Styling */
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+select, input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+select {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+input[type="submit"] {
+    background: #e50914;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background: #f40612;
+}
+
+/* Movie Grid */
+.movies {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+}
+
+.movie {
+    background: #282828;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+}
+
+.movie img {
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.movie h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: #fff;
+}
+
+.movie p {
+    font-size: 0.9em;
+    color: #ddd;
+}
+
+/* Links */
+a {
+    color: #e50914;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #f40612;
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 15px;
+    }
+
+    .header h1 {
+        font-size: 2em;
+    }
+
+    .header p {
+        font-size: 1em;
+    }
+
+    .movies {
+        grid-template-columns: 1fr;
+    }
+}

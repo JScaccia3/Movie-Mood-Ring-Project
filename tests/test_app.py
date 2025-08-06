@@ -1,28 +1,89 @@
-from app import app
 import pytest
+import responses
+from app import app, get_movies_for_mood
+
+# Base URL for TMDB API (adjust if different in your app)
+TMDB_BASE_URL = "https://api.themoviedb.org/3"
 
 @pytest.fixture
 def client():
-    """Create a test client for the Flask app."""
+    """Set up Flask test client."""
     app.config['TESTING'] = True
     with app.test_client() as client:
         yield client
 
-def test_index_page(client):
-    """Test that the index page loads correctly."""
+@responses.activate
+def test_index(client):
+    """Test the index route loads the mood selection page."""
     response = client.get('/')
     assert response.status_code == 200
-    assert b"The Movie Mood Ring" in response.data
+    assert b"Select your current mood" in response.data  # Adjust to match your index.html
 
-def test_recommend_page_valid_mood(client):
-    """Test that the recommend page works with a valid mood."""
-    response = client.post('/recommend', data={'mood': 'happy'})
-    assert response.status_code == 200
-    assert b"Recommendations for Happy Mood" in response.data
+@responses.activate
+def test_recommend_happy(client):
+    """Test movie recommendations for a specific mood (Happy)."""
+    responses.add(responses.GET, f"{TMDB_BASE_URL}/discover/movie",
+                  json={"results": [{"id": 1, "title": "Happy Movie", "poster_path": "/happy.jpg", "overview": "A joyful film"}]})
+    responses.add(responses.GET, f"{TMDB_BASE_URL}/movie/1",
+                  json={"tagline": "Feel the joy!"})
+    responses.add(responses.GET, f"{TMDB_BASE_URL}/movie/1/videos",
+                  json={"results": [{"type": "Trailer", "key": "happy123"}]})
 
-def test_recommend_page_invalid_mood(client):
-    """Test that the recommend page handles invalid moods."""
-    response = client.post('/recommend', data={'mood': 'invalid'})
+    response = client.post('/recommend', data={'mood': 'Happy'})
     assert response.status_code == 200
-    assert b"Mood not recognized" in response.data
-    
+    assert b"Happy Movie" in response.data
+    assert b"Feel the joy!" in response.data
+    assert b"https://www.youtube.com/watch?v=happy123" in response.data
+
+@responses.activate
+def test_recommend_surprise_me(client):
+    """Test the 'Surprise Me!' option returns random movies."""
+    responses.add(responses.GET, f"{TMDB_BASE_URL}/discover/movie",
+                  json={"results": [{"id": 2, "title": "Surprise Movie", "poster_path": "/surprise.jpg", "overview": "Unexpected fun"}]})
+    responses.add(responses.GET, f"{TMDB_BASE_URL}/movie/2",
+                  json={"tagline": "What a twist!"})
+    responses.add(responses.GET, f"{TMDB_BASE_URL}/movie/2/videos",
+                  json={"results": [{"type": "Trailer", "key": "surprise456"}]})
+
+    response = client.post('/recommend', data={'mood': 'Surprise Me!'})
+    assert response.status_code == 200
+    assert b"Surprise Movie" in response.data
+
+@responses.activate
+def test_quiz_happy(client):
+    """Test quiz maps to 'Happy' mood with specific answers."""
+    responses.add(responses.GET, f"{TMDB_BASE_URL}/discover/movie",
+                  json={"results": [{"id": 3, "title": "Quiz Happy", "poster_path": "/quiz.jpg", "overview": "Cheerful vibes"}]})
+    responses.add(responses.GET, f"{TMDB_BASE_URL}/movie/3",
+                  json={"tagline": "Smile!"})
+    responses.add(responses.GET, f"{TMDB_BASE_URL}/movie/3/videos",
+                  json={"results": [{"type": "Trailer", "key": "quiz789"}]})
+
+    response = client.post('/quiz', data={'q1': 'yes', 'q2': 'no', 'q3': 'no'})
+    assert response.status_code == 200
+    assert b"Quiz Happy" in response.data
+
+@responses.activate
+def test_no_movies_found(client):
+    """Test handling when no movies are returned."""
+    responses.add(responses.GET, f"{TMDB_BASE_URL}/discover/movie",
+                  json={"results": []})
+    response = client.post('/recommend', data={'mood': 'Happy'})
+    assert response.status_code == 200
+    assert b"No movies found" in response.data
+
+def test_get_movies_for_mood():
+    """Test the get_movies_for_mood function directly."""
+    with responses.RequestsMock() as rsps:
+        rsps.add(responses.GET, f"{TMDB_BASE_URL}/discover/movie",
+                 json={"results": [{"id": 4, "title": "Test Movie", "poster_path": "/test.jpg", "overview": "Test film"}]})
+        rsps.add(responses.GET, f"{TMDB_BASE_URL}/movie/4",
+                 json={"tagline": "Test tagline"})
+        rsps.add(responses.GET, f"{TMDB_BASE_URL}/movie/4/videos",
+                 json={"results": [{"type": "Trailer", "key": "test999"}]})
+
+        movies, mood = get_movies_for_mood("Happy")
+        assert len(movies) > 0
+        assert movies[0]['title'] == "Test Movie"
+        assert movies[0]['fun_fact'] == "Test tagline"
+        assert movies[0]['trailer_url'] == "https://www.youtube.com/watch?v=test999"

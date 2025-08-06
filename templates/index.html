@@ -1,22 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>The Movie Mood Ring</title>
+    <meta charset="UTF-8">
+    <title>Movie Mood Ring</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>The Movie Mood Ring</h1>
-    <form action="/recommend" method="POST">
-        <label for="mood">What's your mood?</label>
-        <select name="mood" id="mood">
-            <option value="happy">Happy</option>
-            <option value="sad">Sad</option>
-            <option value="scary">Scary</option>
-            <option value="excited">Excited</option>
-            <option value="surprise">Surprise Me!</option>
-        </select>
-        <button type="submit">Get Recommendations</button>
-    </form>
+    <div class="header">
+        <h1>Movie Mood Ring</h1>
+        <p>Discover movies that match your vibe!</p>
+    </div>
+    <div class="form-container">
+        <form method="POST" action="/recommend">
+            <label for="mood">Select your current mood:</label>
+            <select name="mood" id="mood">
+                {% for mood in moods %}
+                    <option value="{{ mood }}">{{ mood }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Get Recommendations">
+        </form>
+        <p><a href="/quiz">Not sure? Take the mood quiz!</a></p>
+    </div>
 </body>
 </html>
-
