@@ -48,7 +48,7 @@ mood_to_keywords = {
 }
 
 def get_movies_for_mood(mood, language='en', min_rating=7.0):
-    if mood == "Surprise Me!":
+    if mood == "Surprise Me!": #possible change for seperate button for surprise me on html file
         selected_mood = random.choice([m for m in moods if m != "Surprise Me!"])
         keywords = mood_to_keywords[selected_mood]
     else:
@@ -90,7 +90,7 @@ def index():
 def recommend():
     mood = request.form.get('mood')
     language = request.form.get('language', 'en')
-    min_rating = float(request.form.get('min_rating', 7.0))
+    min_rating = float(request.form.get('min_rating', 7.0)) # possible change for input of ratings by user
     selected_movies, mood = get_movies_for_mood(mood, language, min_rating)
     return render_template('recommendations.html', movies=selected_movies, mood=mood)
 
