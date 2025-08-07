@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 app = Flask(__name__)
 load_dotenv()
 
-TMDB_API_KEY = os.getenv("TMDB_API_KEY")
+TMDB_API_KEY = os.getenv("TMDB_API_KEY") # either set env file with TMDB_API_KEY or test with key
 TMDB_BASE_URL = "https://api.themoviedb.org/3"
 
 # Define moods
@@ -18,7 +18,8 @@ moods = [
     "Spooky Halloween", "Christmas", "Valentine’s Day", "Beachy Teen Summer"
 ]
 
-# Mood to keyword mapping with actual TMDB keyword IDs
+
+# Mood to keyword mapping with actual TMDB keyword IDs (keyword IDs were derived from our code in the demo workbook)
 mood_to_keywords = {
     'Happy': [304995, 334465, 322268],
     'Sad': [351091, 325854, 316421],
@@ -47,7 +48,7 @@ mood_to_keywords = {
     'Beachy Teen Summer': [13088, 966, 346617]
 }
 
-def get_movies_for_mood(mood, language='en', min_rating=7.0):
+def get_movies_for_mood(mood, language='en', min_rating=7.0): #possible change for other languages / rating?
     if mood == "Surprise Me!": #possible change for seperate button for surprise me on html file
         selected_mood = random.choice([m for m in moods if m != "Surprise Me!"])
         keywords = mood_to_keywords[selected_mood]
@@ -101,7 +102,7 @@ def quiz():
         q2 = request.form.get('q2')  # Scary?
         q3 = request.form.get('q3')  # Romantic?
         
-        if q1 == 'yes':
+        if q1 == 'yes': #change of quiz to scoring system and change html file to match
             mood = "Happy"
         elif q2 == 'yes':
             mood = "Scared"
