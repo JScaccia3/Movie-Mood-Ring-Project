@@ -69,7 +69,7 @@ def get_movies_for_mood(mood, language='en', min_rating=7.0): #possible change f
     response = requests.get(f"{TMDB_BASE_URL}/discover/movie", params=params)
     movies = response.json().get("results", [])
 
-    selected_movies = random.sample(movies, min(5, len(movies))) if movies else []
+    selected_movies = random.sample(movies, min(5, len(movies))) if movies else [] #change to 4 options
 
     for movie in selected_movies:
         details_response = requests.get(f"{TMDB_BASE_URL}/movie/{movie['id']}?api_key={TMDB_API_KEY}")
