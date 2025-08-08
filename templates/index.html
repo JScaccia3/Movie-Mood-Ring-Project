@@ -7,21 +7,28 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="header">
-        <h1>Movie Mood Ring</h1>
-        <p>Discover movies that match your vibe!</p>
+    <div class="background-posters">
+        {% for poster in posters %}
+            <img src="https://image.tmdb.org/t/p/w500{{ poster }}" alt="Movie Poster" class="poster">
+        {% endfor %}
     </div>
-    <div class="form-container">
-        <form method="POST" action="/recommend">
-            <label for="mood">Select your current mood:</label>
-            <select name="mood" id="mood">
-                {% for mood in moods %}
-                    <option value="{{ mood }}">{{ mood }}</option>
-                {% endfor %}
-            </select>
-            <input type="submit" value="Get Recommendations">
-        </form>
-        <p><a href="/quiz">Not sure? Take the mood quiz!</a></p>
+    <div class="content-overlay">
+        <div class="header">
+            <h1>Movie Mood Ring</h1>
+            <p>Discover movies that match your vibe!</p>
+        </div>
+        <div class="form-container">
+            <form method="POST" action="/recommend">
+                <label for="mood">Select your current mood:</label>
+                <select name="mood" id="mood">
+                    {% for mood in moods %}
+                        <option value="{{ mood }}">{{ mood }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Get Recommendations">
+            </form>
+            <p><a href="/quiz">Not sure? Take the mood quiz!</a></p>
+        </div>
     </div>
 </body>
 </html>

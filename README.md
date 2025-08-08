@@ -1,8 +1,8 @@
 # Movie Mood Ring
 
-The Movie Mood Ring is a Flask web application that recommends movies based on your current mood. It uses the [TMDB API](https://www.themoviedb.org/) to fetch movie data and provides a fun, interactive way to discover new films.
+The Movie Mood Ring is a Flask web application that recommends movies based on your current mood. It uses the [TMDB API](https://www.themoviedb.org/) to fetch movie data and provides a fun, interactive way to discover new films
 
-## Setup (Local)
+### Setup (Local)
 
 To run this app locally, follow these steps:
 
