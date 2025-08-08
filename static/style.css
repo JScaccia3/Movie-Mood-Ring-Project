@@ -6,6 +6,39 @@ body {
     margin: 0;
     padding: 20px;
     line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Background Posters */
+.background-posters {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    z-index: -1;
+    opacity: 0.3;
+}
+
+.background-posters img.poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(10px);
+}
+
+/* Content Overlay */
+.content-overlay {
+    position: relative;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 auto;
+    overflow: visible; /* Prevent scrolling */
 }
 
 /* Headings */
@@ -82,8 +115,10 @@ input[type="submit"]:hover {
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 25px;
     padding: 20px 0;
+    overflow: visible; /* Prevent scrolling */
 }
 
+/* Movie Card */
 .movie {
     background: #282828;
     border-radius: 12px;
@@ -110,9 +145,61 @@ input[type="submit"]:hover {
     color: #fff;
 }
 
+.movie h3 a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.movie h3 a:hover {
+    color: #e50914;
+    text-decoration: underline;
+}
+
 .movie p {
     font-size: 0.9em;
     color: #ddd;
+}
+
+/* Movie Details Page */
+.movie-details-container {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #282828;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    overflow: visible; /* Prevent scrolling */
+}
+
+.movie-poster {
+    flex: 0 0 auto;
+}
+
+.movie-poster img {
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.movie-info {
+    flex: 1;
+    padding: 10px;
+    overflow: visible; /* Prevent scrolling */
+}
+
+.movie-info p {
+    font-size: 0.95em;
+    color: #ddd;
+    margin: 12px 0;
+}
+
+.movie-info strong {
+    color: #e50914;
+    font-weight: 700;
 }
 
 /* Links */
@@ -128,7 +215,7 @@ a:hover {
 }
 
 /* Responsive Design */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .form-container {
         padding: 15px;
     }
@@ -143,5 +230,22 @@ a:hover {
 
     .movies {
         grid-template-columns: 1fr;
+    }
+
+    .movie-details-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .movie-poster img {
+        max-width: 100%;
+    }
+
+    .movie-info {
+        padding: 0;
+    }
+
+    .background-posters {
+        grid-template-columns: repeat(2, 1fr);
     }
 }

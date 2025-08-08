@@ -7,30 +7,38 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="header">
-        <h1>Mood Quiz</h1>
-        <p>Answer a few questions to find your movie mood!</p>
+    <div class="background-posters">
+        {% for poster in posters %}
+            <img src="https://image.tmdb.org/t/p/w500{{ poster }}" alt="Movie Poster" class="poster">
+        {% endfor %}
     </div>
-    <div class="form-container">
-        <form method="POST" action="/quiz">
-            <label for="q1">Are you feeling upbeat today?</label>
-            <select name="q1" id="q1">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-            <label for="q2">Do you want something thrilling?</label>
-            <select name="q2" id="q2">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-            <label for="q3">Are you in the mood for love?</label>
-            <select name="q3" id="q3">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-            <input type="submit" value="Find My Mood">
-        </form>
-        <p><a href="/">Back to mood selection</a></p>
+    <div class="content-overlay">
+        <div class="header">
+            <h1>Mood Quiz</h1>
+            <p>Answer a few questions to find your movie vibe!</p>
+        </div>
+        <div class="form-container">
+            <form method="POST" action="/quiz">
+                <label for="q1">Are you in the mood for something uplifting?</label>
+                <select name="q1" id="q1">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <label for="q2">Do you want something scary?</label>
+                <select name="q2" id="q2">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <label for="q3">Are you feeling romantic?</label>
+                <select name="q3" id="q3">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <input type="submit" value="Get Recommendations">
+            </form>
+            <p><a href="/">Back to mood selection</a></p>
+        </div>
     </div>
 </body>
 </html>
+

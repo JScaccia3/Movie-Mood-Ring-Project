@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ movie.title }} - Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-posters">
+        {% for poster in posters %}
+            <img src="https://image.tmdb.org/t/p/w500{{ poster }}" alt="Movie Poster" class="poster">
+        {% endfor %}
+    </div>
+    <div class="content-overlay">
+        <div class="header">
+            <h1>{{ movie.title }}</h1>
+        </div>
+        <div class="movie-details-container">
+            <div class="movie-poster">
+                <img src="https://image.tmdb.org/t/p/w780{{ movie.poster_path }}" alt="{{ movie.title }}">
+            </div>
+            <div class="movie-info">
+                <p><strong>Overview:</strong> {{ movie.overview }}</p>
+                <p><strong>Average User Rating:</strong> {{ '%.1f' % movie.vote_average }}/10 ({{ movie.vote_count }} votes)</p>
+                <p><strong>Genres:</strong> {{ movie.genres }}</p>
+                <p><strong>Runtime:</strong> {{ movie.runtime }} minutes</p>
+                <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+                <p><strong>Production Companies:</strong> {{ movie.production_companies }}</p>
+                <p><strong>Budget:</strong> {{ movie.budget }}</p>
+                <p><strong>Revenue:</strong> {{ movie.revenue }}</p>
+                {% if movie.trailer_url %}
+                    <p><a href="{{ movie.trailer_url }}" target="_blank">Watch Trailer</a></p>
+                {% endif %}
+            </div>
+        </div>
+        <p><a href="{{ url_for('recommend_get', mood=mood) }}">Back to Recommendations</a></p>
+    </div>
+</body>
+</html>
