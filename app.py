@@ -15,7 +15,7 @@ TMDB_BASE_URL = "https://api.themoviedb.org/3"
 moods = [
     "Happy", "Sad", "Excited", "Scared", "Hungry", "Relaxed", "Romantic", "Inspired",
     "Nostalgic", "Curious", "Adventurous", "Angry", "Hopeful", "Mellow", "Playful",
-    "Tense", "Cozy", "Epic", "Silly", "Reflective", "Energetic", "Surprise Me!",
+    "Tense", "Cozy", "Epic", "Silly", "Reflective", "Energetic",
     "Spooky Halloween", "Christmas", "Valentine’s Day", "Beachy Teen Summer"
 ]
 
@@ -140,28 +140,66 @@ def recommend_get(mood):
     posters = get_random_posters(8)
     return render_template('recommendations.html', movies=selected_movies, mood=mood, posters=posters)
 
+
+#Quiz
+
+quiz_questions = [
+    {
+        "questions": "q1",
+        "options": {"beach": ["Happy", "Nostalgic", "Hopeful", "Silly", "Reflective", "Beachy Teen Summer"], 
+                    "mountains": ["Sad", "Scared", "Adventurous", "Angry", "Energetic", "Spooky Halloween"], 
+                    "city": ["Excited", "Inspired", "Curious", "Tense", "Epic", "Christmas"], 
+                    "staycation": ["Romantic", "Hungry", "Mellow", "Playful", "Cozy", "Valentine’s Day"]}
+    },
+    {
+        "questions": "q2",
+        "options": {"popcorn": ["Sad", "Hungry", "Silly", "Christmas", "Scared", "Angry"], 
+                    "chocolate": ["Romantic", "Mellow", "Playful", "Cozy", "Reflective", "Valentine’s Day"], 
+                    "candy": ["Excited", "Nostalgic", "Curious", "Adventurous", "Energetic", "Spooky Halloween"], 
+                    "fruits": ["Happy", "Inspired", "Hopeful", "Tense", "Epic", "Beachy Teen Summer"]}
+    },
+    {
+        "questions": "q3",
+        "options": {"party": ["Excited", "Beachy Teen Summer", "Angry", "Energetic", "Curious", "Tense"], 
+                    "takeout & movie": ["Romantic", "Hopeful", "Scared", "Hungry", "Relaxed", "Valentine’s Day"], 
+                    "reading": ["Sad", "Nostalgic", "Reflective", "Mellow", "Cozy", "Christmas"], 
+                    "gaming": ["Happy", "Silly", "Adventurous", "Playful", "Spooky Halloween", "Inspired"]}
+    }
+]
+
+@app.route('/surprise')
+def surprise():
+    selected_movies, mood = get_movies_for_mood("Surprise Me!", 'en', 7.0)
+    return render_template('recommendations.html', movies=selected_movies, mood="Surprise Me!")
+
+#Quiz
+
 @app.route('/quiz', methods=['GET', 'POST'])
 def quiz():
-    posters = get_random_posters(8)
     if request.method == 'POST':
-        q1 = request.form.get('q1')
-        q2 = request.form.get('q2')
-        q3 = request.form.get('q3')
+        mood_score = {mood: 0 for mood in moods}
+        answers = {
+            "q1": request.form.get('q1'),
+            "q2": request.form.get('q2'),
+            "q3": request.form.get('q3')
+        } 
+        for q in quiz_questions:
+            question_list = q["questions"]
+            answer = answers.get(question_list)
+            if answer in q["options"]:
+                for mood in q["options"][answer]:
+                    mood_score[mood] += 1
+        max_score = max(mood_score.values())
+        top_moods = [m for m, score in mood_score.items() if score == max_score and score > 0]
+        final_mood = top_moods[0] if top_moods else "Relaxed"
         
-        if q1 == 'yes':
-            mood = "Happy"
-        elif q2 == 'yes':
-            mood = "Scared"
-        elif q3 == 'yes':
-            mood = "Romantic"
-        else:
-            mood = "Relaxed"
-        
-        session.pop(f"movies_{mood}", None)
-        selected_movies, mood = get_movies_for_mood(mood, 'en', 7.0)
-        return render_template('recommendations.html', movies=selected_movies, mood=mood, posters=posters)
+        selected_movies, mood = get_movies_for_mood(final_mood, 'en', 7.0)
+        return render_template('recommendations.html', movies=selected_movies, mood= final_mood)
     
-    return render_template('quiz.html', posters=posters)
+    return render_template('quiz.html')
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
 @app.route('/movie/<int:movie_id>')
 def movie_details(movie_id):

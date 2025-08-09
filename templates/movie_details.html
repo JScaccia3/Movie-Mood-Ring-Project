@@ -30,8 +30,10 @@
                 <p><strong>Budget:</strong> {{ movie.budget }}</p>
                 <p><strong>Revenue:</strong> {{ movie.revenue }}</p>
                 {% if movie.trailer_url %}
-                    <p><a href="{{ movie.trailer_url }}" target="_blank">Watch Trailer</a></p>
+                    <p class="trailer-style">
+                    <a href="{{ movie.trailer_url }}" target="_blank">Watch Trailer</a></p>
                 {% endif %}
+                    </p>
             </div>
         </div>
         <p><a href="{{ url_for('recommend_get', mood=mood) }}">Back to Recommendations</a></p>
