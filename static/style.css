@@ -249,3 +249,16 @@ a:hover {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+.trailer-style a {
+    color: #FAEBD7; 
+    background-color: #4682B4; 
+    border-radius: 15px; 
+    padding: 4px 12px; 
+    margin: 0; 
+    display: inline-block;
+}
+
+input[type="submit"] {
+    margin-top: 20px;
+}

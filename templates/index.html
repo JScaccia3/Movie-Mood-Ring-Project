@@ -25,9 +25,13 @@
                         <option value="{{ mood }}">{{ mood }}</option>
                     {% endfor %}
                 </select>
+                <label for="min_rating">Minimum Rating:</label>
+                <input type="number" name="min_rating" id="min_rating" step="0.1" min="0" max="10" value="5">
+                <br>
                 <input type="submit" value="Get Recommendations">
             </form>
-            <p><a href="/quiz">Not sure? Take the mood quiz!</a></p>
+            <p><a href="/surprise">Surprise Me!</a></p>
+        <p><a href="/quiz">Not sure? Take the mood quiz!</a></p>
         </div>
     </div>
 </body>

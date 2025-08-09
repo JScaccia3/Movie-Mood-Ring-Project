@@ -14,9 +14,10 @@
     </div>
     <div class="content-overlay">
         <div class="header">
-            <h1>Movie Recommendations for "{{ mood }}"</h1>
+            <h1>Movie Recommendations for {{ mood }}</h1>
             <p>Here’s what we found for you!</p>
         </div>
+        <p><a href="/">Back to mood selection</a></p>
         <div class="movies">
             {% if movies %}
                 {% for movie in movies %}
@@ -24,7 +25,7 @@
                         <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }}">
                         <h3><a href="{{ url_for('movie_details', movie_id=movie.id, mood=mood) }}">{{ movie.title }}</a></h3>
                         <p>{{ movie.overview }}</p>
-                        <p><strong>Average User Rating:</strong> {{ '%.1f' % movie.vote_average }}/10 ({{ movie.vote_count }} votes)</p>
+                        <p style="color: #B8860B;"><strong>Average User Rating:</strong> {{ '%.1f' % movie.vote_average }}/10 ({{ movie.vote_count }} votes)</p>
                         {% if movie.trailer_url %}
                             <p><a href="{{ movie.trailer_url }}" target="_blank">Watch Trailer</a></p>
                         {% endif %}
