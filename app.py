@@ -20,6 +20,8 @@ moods = [
 ]
 
 # Mood to keyword mapping with actual TMDB keyword IDs
+# Note to Professor, these keywordIDs were obtained through another line of code, that we used to derive the mapping
+# of 2 to 3 key words per emotion / mood, we ran this code on Google Colab, and we took the final API Keys and wrote them below
 mood_to_keywords = {
     'Happy': [304995, 334465, 322268],
     'Sad': [351091, 325854, 316421],
